@@ -103,3 +103,4 @@ const SetPasswordModal: FC<SetPasswordProps> = ({ email, open, onClose }): React
     );
 
 };
+export default SetPasswordModal

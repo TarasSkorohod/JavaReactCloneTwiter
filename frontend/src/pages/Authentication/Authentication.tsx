@@ -10,6 +10,7 @@ import {RegistrationInfo} from "../../types/auth";
 import CustomizeModal from "../RegistrationModal/CustomizeModal/CustomizeModal";
 import CreateAccountModal from "../RegistrationModal/CreateAccountModal/CreateAccountModal";
 import EmailVerificationModal from "../RegistrationModal/EmailVerificationModal/EmailVerificationModal";
+import SetPasswordModal from "../RegistrationModal/SetPasswordModal/SetPasswordModal";
 
 
 const Authentication: FC = (): ReactElement =>{
@@ -120,6 +121,11 @@ const Authentication: FC = (): ReactElement =>{
                         onClose={handleCloseModal}
                         onOpenSetPassword={setVisibleSetPasswordModal}
                     />
+                    <SetPasswordModal
+                        email={registrationInfo.email}
+                        open={visibleSetPasswordModal}
+                        onClose={handleCloseModal}
+                        />
                 </div>
             </section>
 
