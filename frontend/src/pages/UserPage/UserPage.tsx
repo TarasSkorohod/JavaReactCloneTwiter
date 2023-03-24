@@ -82,7 +82,7 @@ const UserPage = (): ReactElement => {
     const params = useParams<{ userId: string }>();
     const [activeTab, setActiveTab] = useState<number>(0);
 
-    // useEffect(() => {
+
 
     return (
         <>

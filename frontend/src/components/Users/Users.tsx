@@ -1,15 +1,18 @@
 import React, { FC, ReactElement } from "react";
 import { useHistory } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
+import { Paper, Typography } from "@material-ui/core";
+import List from "@material-ui/core/List/List";
+import ListItem from "@material-ui/core/ListItem/ListItem";
 
 import { selectUsers, selectUsersIsLoading } from "../../store/ducks/users/selectors";
+import UsersItem, { UserItemSize } from "../UsersItem/UsersItem";
 import { useUsersStyles } from "./UsersStyles";
+import Spinner from "../Spinner/Spinner";
 import { resetUsersState } from "../../store/ducks/users/actionCreators";
 import { HOME_CONNECT } from "../../constants/path-constants";
-import {List, ListItem, Paper, Typography} from "@material-ui/core";
-import Spinner from "../Spinner/Spinner";
 
-const Users: FC = ():ReactElement => {
+const Users: FC = (): ReactElement => {
     const classes = useUsersStyles();
     const dispatch = useDispatch();
     const history = useHistory();
@@ -20,6 +23,7 @@ const Users: FC = ():ReactElement => {
         dispatch(resetUsersState());
         history.push(HOME_CONNECT);
     };
+
     return (
         <>
             {(history.location.pathname !== HOME_CONNECT) && (
@@ -47,6 +51,6 @@ const Users: FC = ():ReactElement => {
             )}
         </>
     );
+};
 
-}
 export default Users;

@@ -32,6 +32,8 @@ import {
     yellowColor
 } from "./theme";
 import {BACKGROUND, COLOR} from "./constants/common-constants";
+import SideSearch from "./components/SideSearch/SideSearch";
+import spinner from "./components/Spinner/Spinner";
 
 
 
@@ -110,6 +112,7 @@ const App: FC = (): ReactElement => {
                     <Route path={ACCOUNT_SIGNIN} component={Authentication} exact />
                     <Route path={ACCOUNT_LOGIN} component={Login} exact />
                     <Route path={HOME} component={Home} exact />
+                    <Route component={SideSearch} />
 
                     <Route path={BOOKMARKS} component={Bookmarks} />
                     {/*/:userId*/}
