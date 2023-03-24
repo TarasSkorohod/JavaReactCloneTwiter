@@ -14,14 +14,14 @@ interface TweetActionsProps {
     tweetId?: number;
     activeTab?: number;
 }
+
 const TweetActions: FC<TweetActionsProps> = memo(({ retweetsUserIds, tweetId, activeTab }): ReactElement => {
     const userProfileId = useSelector(selectUserProfileId);
-    const isTweetRetweetedByUser = retweetsUserIds?.findIndex((id) => id === userProfileId) !== -1;
-    const myProfileId = useSelector(selectUserDataId);
-    const fullName = useSelector(selectUserProfileFullName);
-    const myProfilePinnedTweetId = useSelector(selectUserPinnedTweetId);
     const userProfilePinnedTweetId = useSelector(selectUserProfilePinnedTweetId);
-
+    const fullName = useSelector(selectUserProfileFullName);
+    const myProfileId = useSelector(selectUserDataId);
+    const myProfilePinnedTweetId = useSelector(selectUserPinnedTweetId);
+    const isTweetRetweetedByUser = retweetsUserIds?.findIndex((id) => id === userProfileId) !== -1;
 
     return (
         <>
@@ -37,4 +37,5 @@ const TweetActions: FC<TweetActionsProps> = memo(({ retweetsUserIds, tweetId, ac
         </>
     );
 });
-export default TweetActions
+
+export default TweetActions;

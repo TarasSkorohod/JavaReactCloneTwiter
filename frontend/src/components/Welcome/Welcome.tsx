@@ -25,6 +25,7 @@ const Welcome: FC = (): ReactElement => {
                     color="primary"
                     variant="contained"
                     size="small"
+
                 >
                     Let's go
                 </Button>

@@ -40,7 +40,7 @@ const AddTweetForm: FC<AddTweetFormProps> = (
     return (
 
       <div>
-          Sravca
+
       </div>
     );
 }

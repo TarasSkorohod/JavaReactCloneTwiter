@@ -15,6 +15,7 @@ import { DisplayProps } from "./Settings/AccessibilityDisplayLanguages/Display/D
 import { selectImages } from "../store/ducks/userProfile/selectors";
 import { ACCOUNT, SETTINGS } from "../constants/path-constants";
 import { TWITTER_ADS_WORK, TWITTER_COOKIES, TWITTER_PRIVACY, TWITTER_TOS } from "../constants/url-constants";
+import SideSearch from "../components/SideSearch/SideSearch";
 
 interface Layout {
     children: ReactNode;
@@ -53,40 +54,15 @@ export const Layout: FC<Layout & DisplayProps> = (
                             {children}
                         </Grid>
                         <div>
-                            {/*<SideSearch />*/}
+                            <SideSearch />
                             {/*{tweetImages.length !== 0 && <ProfileImages />}*/}
                             <div className={classes.rightSide}>
                                 <Tags />
                                 <Users />
                                 <div className={classes.footer}>
                                     <div>
-                                        <a href={TWITTER_TOS} target={"_blank"}>
-                                            <Typography component={"span"}>
-                                                Terms of Service
-                                            </Typography>
-                                        </a>
-                                        <a href={TWITTER_PRIVACY} target={"_blank"}>
-                                            <Typography component={"span"}>
-                                                Privacy Policy
-                                            </Typography>
-                                        </a>
-                                        <a href={TWITTER_COOKIES} target={"_blank"}>
-                                            <Typography component={"span"}>
-                                                Cookie Policy
-                                            </Typography>
-                                        </a>
-                                    </div>
-                                    <div>
-                                        <a href={TWITTER_ADS_WORK} target={"_blank"}>
-                                            <Typography component={"span"}>
-                                                Ads info
-                                            </Typography>
-                                        </a>
                                         <Typography component={"span"}>
-                                            More {EditIcon}
-                                        </Typography>
-                                        <Typography component={"span"}>
-                                            {`© ${getYear(Date.now())} Twitter, Inc.`}
+                                            {`© ${getYear(Date.now())} Taras_project-Final-DanIt, Inc.`}
                                         </Typography>
                                     </div>
                                 </div>

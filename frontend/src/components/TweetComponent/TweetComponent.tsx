@@ -1,13 +1,29 @@
 import React, { FC, memo, ReactElement } from "react";
+import { useSelector } from "react-redux";
+import { Paper } from "@material-ui/core";
+
+import { useTweetComponentStyles } from "./TweetComponentStyles";
+import { selectUserDataId } from "../../store/ducks/user/selectors";
+import TweetComponentActions from "../TweetComponentActions/TweetComponentActions";
+import ShareTweetIconButton from "../ShareTweetIconButton/ShareTweetIconButton";
+import VoteComponent from "../VoteComponent/VoteComponent";
+import QuoteIconButton from "../QuoteIconButton/QuoteIconButton";
+import Quote from "../Quote/Quote";
 import { TweetResponse } from "../../types/tweet";
-import {useTweetComponentStyles} from "./TweetComponentStyles";
-import {useSelector} from "react-redux";
-import {selectUserDataId} from "../../store/ducks/user/selectors";
-import {ReplyType} from "../../types/common";
-import {Paper} from "@material-ui/core";
-import TweetActions from "./TweetActions/TweetActions";
+import { ReplyType } from "../../types/common";
+import TweetDeleted from "../TweetDeleted/TweetDeleted";
+import LikeIconButton from "./LikeIconButton/LikeIconButton";
+import ReplyIconButton from "./ReplyIconButton/ReplyIconButton";
+import AnalyticsIconButton from "./AnalyticsIconButton/AnalyticsIconButton";
+import TweetMedia from "./TweetMedia/TweetMedia";
+import TweetHeader from "./TweetHeader/TweetHeader";
 import TweetAvatar from "./TweetAvatar/TweetAvatar";
-import {DEFAULT_PROFILE_IMG} from "../../constants/url-constants";
+import TweetReplyingUsername from "./TweetReplyingUsername/TweetReplyingUsername";
+import TweetText from "./TweetText/TweetText";
+import TweetImage from "./TweetImage/TweetImage";
+import TweetReplyConversation from "./TweetReplyConversation/TweetReplyConversation";
+import TweetActions from "./TweetActions/TweetActions";
+import { DEFAULT_PROFILE_IMG } from "../../constants/url-constants";
 
 export interface TweetComponentProps {
     tweet?: TweetResponse;
@@ -27,7 +43,44 @@ const TweetComponent: FC<TweetComponentProps> = memo(({ tweet, activeTab, isTwee
                 <TweetAvatar userId={tweet?.user.id} src={tweet?.user.avatar ?? DEFAULT_PROFILE_IMG} />
                 <div className={classes.tweetContainer}>
                     <div className={classes.header}>
-
+                        <TweetHeader
+                            userId={tweet?.user.id}
+                            fullName={tweet?.user.fullName}
+                            username={tweet?.user.username}
+                            isPrivateProfile={tweet?.user.isPrivateProfile}
+                            dateTime={tweet!.dateTime}
+                        />
+                        <TweetComponentActions tweetId={tweet!.id} />
+                    </div>
+                    <div className={classes.tweetContent}>
+                        {tweet?.addressedUsername && (
+                            <TweetReplyingUsername
+                                addressedId={tweet?.addressedId}
+                                addressedUsername={tweet.addressedUsername}
+                            />
+                        )}
+                        <TweetText text={tweet?.text} tweetId={tweet?.id} />
+                        {(tweet?.images?.length !== 0) && (
+                            <TweetImage tweetId={tweet?.id} imageSrc={tweet?.images?.[0].src} />
+                        )}
+                        {tweet?.poll && <VoteComponent tweetId={tweet?.id} poll={tweet?.poll} />}
+                        {(tweet?.user.isFollower && tweet?.replyType === ReplyType.FOLLOW) && (
+                            <TweetReplyConversation />
+                        )}
+                        {tweet?.quoteTweet && (
+                            tweet?.quoteTweet.isDeleted ? (
+                                <TweetDeleted />
+                            ) : (
+                                <Quote quoteTweet={tweet?.quoteTweet} isTweetQuoted />
+                            ))
+                        }
+                        <TweetMedia
+                            link={tweet?.link}
+                            linkTitle={tweet?.linkTitle}
+                            linkDescription={tweet?.linkDescription}
+                            linkCover={tweet?.linkCover}
+                            linkCoverSize={tweet?.linkCoverSize}
+                        />
                     </div>
                     </div>
             </div>
