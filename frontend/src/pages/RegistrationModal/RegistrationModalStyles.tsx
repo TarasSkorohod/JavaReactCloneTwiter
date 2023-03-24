@@ -1,6 +1,6 @@
-import {makeStyles, Theme} from "@material-ui/core";
+import { makeStyles, Theme } from "@material-ui/core";
 
-export const useRegistrationModalStyles = makeStyles((theme:Theme) => ({
+export const useRegistrationModalStyles = makeStyles((theme: Theme) => ({
     container: {
         width: 550,
         minHeight: 600,
@@ -34,10 +34,11 @@ export const useRegistrationModalStyles = makeStyles((theme:Theme) => ({
             fontWeight: 700
         }
     },
+
     formControl: {
         margin: "16px 0"
     },
     buttonWrapper: {
         marginBottom: 15
     }
-}))
+}));

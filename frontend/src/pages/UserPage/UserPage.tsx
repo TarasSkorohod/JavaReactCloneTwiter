@@ -1,10 +1,19 @@
 import React, {ReactElement, useCallback, useEffect, useState} from "react";
 import {useParams} from "react-router-dom";
 import {useDispatch, useSelector} from "react-redux";
-
+import Paper from "@material-ui/core/Paper";
+import {CompatClient, Stomp} from "@stomp/stompjs";
+import SockJS from "sockjs-client";
+import classnames from "classnames";
 
 import {useUserPageStyles} from "./UserPageStyles";
 import {selectUserDataId, selectUserIsLoaded} from "../../store/ducks/user/selectors";
+import {
+    fetchUserTweets,
+    resetUserTweets,
+    setAddedUserTweet,
+    setUpdatedUserTweet
+} from "../../store/ducks/userTweets/actionCreators";
 import {
     selectUserProfileFullName,
     selectUserProfileId,
@@ -19,22 +28,40 @@ import {
     selectUsersIsLoading,
     selectUsersIsSuccessLoaded
 } from "../../store/ducks/userProfile/selectors";
-
-import {useGlobalStyles} from "../../util/globalClasses";
+import {
+    fetchImages,
+    fetchUserProfile,
+    resetImagesState,
+    resetUserProfileState
+} from "../../store/ducks/userProfile/actionCreators";
+import {WS_URL} from "../../constants/endpoint-constants";
+import Spinner from "../../components/Spinner/Spinner";
 import UserNotFound from "./UserNotFound/UserNotFound";
-import {Paper} from "@material-ui/core";
-import classnames from "classnames";
+import {useGlobalStyles} from "../../util/globalClasses";
 import UserPageHeader from "./UserPageHeader/UserPageHeader";
 import UserWallpaper from "./UserWallpaper/UserWallpaper";
 import UserAvatar from "./UserAvatar/UserAvatar";
 import EditProfileButton from "./EditProfileButton/EditProfileButton";
+import AddUserToChatButton from "./AddUserToChatButton/AddUserToChatButton";
+import BlockUserButton from "./BlockUserButton/BlockUserButton";
+import NotificationButton from "./NotificationButton/NotificationButton";
+import UnfollowUserButton from "./UnfollowUserButton/UnfollowUserButton";
+import CancelUserButton from "./CancelUserButton/CancelUserButton";
+import FollowUserButton from "./FollowUserButton/FollowUserButton";
 import UserInfo from "./UserInfo/UserInfo";
 import UserDetails from "./UserDetails/UserDetails";
-import Spinner from "../../components/Spinner/Spinner";
+import UserInteractionCount from "./UserInteractionCount/UserInteractionCount";
+import UserUnmuteMessage from "./UserUnmuteMessage/UserUnmuteMessage";
+import UserFollowerGroup from "./UserFollowerGroup/UserFollowerGroup";
+import UserBlockedMessage from "./UserBlockedMessage/UserBlockedMessage";
+import UserPrivateProfileMessage from "./UserPrivateProfileMessage/UserPrivateProfileMessage";
+import UserTweets from "./UserTweets/UserTweets";
+import UserPageActions from "./UserPageActions/UserPageActions";
+import {TOPIC_USER_ADD_TWEET, TOPIC_USER_UPDATE_TWEET} from "../../constants/ws-constants";
 
+let stompClient: CompatClient | null = null;
 
-
-const userPage = ():ReactElement => {
+const UserPage = (): ReactElement => {
     const globalClasses = useGlobalStyles();
     const classes = useUserPageStyles();
     const dispatch = useDispatch();
@@ -54,6 +81,8 @@ const userPage = ():ReactElement => {
     const isUserProfileNotLoaded = useSelector(selectUsersIsErrorLoaded);
     const params = useParams<{ userId: string }>();
     const [activeTab, setActiveTab] = useState<number>(0);
+
+    // useEffect(() => {
 
     return (
         <>
@@ -119,8 +148,10 @@ const userPage = ():ReactElement => {
                                 ) : (
                                     isPrivateProfile && !isFollower && userProfileId !== myProfileId ? (
                                         <UserPrivateProfileMessage/>
-                                    ) : (
-                                        <UserTweets activeTab={activeTab} handleChangeTab={handleChangeTab}/>
+                                    )
+                                        : (
+                                            <div></div>
+                                       // підключати до серверу твіти
                                     )
                                 )
                             )
@@ -130,5 +161,6 @@ const userPage = ():ReactElement => {
             )}
         </>
     );
-}
-export default userPage;
+};
+
+export default UserPage;

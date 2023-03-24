@@ -1,0 +1,32 @@
+import {FC, memo, ReactElement} from "react";
+import {FollowerUserResponse} from "../../../../../types/user";
+import {useFollowerRequestsItemStyles} from "../FollowerRequestsItemStyles";
+import {Typography} from "@material-ui/core";
+import PopperUserWindow from "../../../../PopperUserWindow/PopperUserWindow";
+import {useHoverUser} from "../../../../../hook/useHoverUser";
+
+interface UserRequestsInfoProps {
+    user: FollowerUserResponse;
+}
+
+const UserRequestsInfo: FC<UserRequestsInfoProps> = memo(({user}): ReactElement => {
+    const classes = useFollowerRequestsItemStyles();
+    const { visiblePopperWindow, handleHoverPopper, handleLeavePopper } = useHoverUser();
+
+    return (
+        <div className={classes.header}>
+            <Typography id={"handleHoverPopper"} variant={"h6"} onMouseEnter={() => handleHoverPopper(user.id!)}>
+                {user?.fullName}
+            </Typography>
+            <Typography variant={"subtitle1"}>
+                @{user?.username}
+            </Typography>
+            <Typography variant={"body1"}>
+                {user?.about}
+            </Typography>
+            <PopperUserWindow visible={visiblePopperWindow} />
+        </div>
+    );
+
+})
+export default UserRequestsInfo;

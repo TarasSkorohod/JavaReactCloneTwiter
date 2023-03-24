@@ -29,17 +29,7 @@ const CreateAccountModal: FC<CustomizeModalProps> = (
     const [isLoading, setIsLoading] = useState<boolean>(false);
 
     const onSubmit = (): void => {
-        setIsLoading(true)
-
-        AuthApi.sendRegistrationCode(registrationInfo)
-            .then((response) =>{
-                setIsLoading(false);
-                onOpenEmailVerification(true);
-            })
-            .catch((error)=>{
-                console.log(error.reponse);
-                setIsLoading(false)
-            })
+      //робота с АПІ
     }
 
 

@@ -1,10 +1,12 @@
 import React, { FC, ReactElement, useState } from "react";
 import TwitterIcon from "@material-ui/icons/Twitter";
-import {useGlobalStyles} from "../../../util/globalClasses";
-import {useEmailVerificationModalStyles} from "./EmailVerificationModalStyles";
-import {Button, Dialog, DialogContent, Link as MuiLink, Typography} from "@material-ui/core";
-import {RegistrationInputField} from "../RegistrationInput/RegistrationInputField";
-import {AuthApi} from "../../../services/api/authApi";
+import { Button, Dialog, DialogContent, Link as MuiLink, Typography } from "@material-ui/core";
+
+import { useEmailVerificationModalStyles } from "./EmailVerificationModalStyles";
+import { RegistrationInputField } from "../RegistrationInput/RegistrationInputField";
+import { AuthApi } from "../../../services/api/authApi";
+import { useGlobalStyles } from "../../../util/globalClasses";
+
 interface CustomizeModalProps {
     email: string;
     open: boolean;
@@ -12,18 +14,16 @@ interface CustomizeModalProps {
     onOpenSetPassword: (value: boolean | ((prevVar: boolean) => boolean)) => void;
 }
 
-const EmailVerificationModal: FC<CustomizeModalProps> =({email,open,onClose, onOpenSetPassword}): ReactElement =>{
+const EmailVerificationModal: FC<CustomizeModalProps> = ({ email, open, onClose, onOpenSetPassword }): ReactElement => {
     const globalClasses = useGlobalStyles();
     const classes = useEmailVerificationModalStyles();
     const [verificationCode, setVerificationCode] = useState<string>("");
+    const [error, setError] = useState<string>("");
+
     const checkEmailVerificationCode = (): void => {
-        AuthApi.checkRegistrationCode(verificationCode)
-            .then(() => onOpenSetPassword(true))
-            .catch((error) => setError(error.response.data));
+        //Робота с Апі
     };
 
-
-    const [error, setError] = useState<string>("");
     return (
         <Dialog
             className={globalClasses.modalShadow}
@@ -32,7 +32,6 @@ const EmailVerificationModal: FC<CustomizeModalProps> =({email,open,onClose, onO
             onClose={onClose}
             aria-labelledby="form-dialog-title"
             hideBackdrop
-
         >
             <DialogContent style={{ paddingTop: 0, paddingBottom: 0 }} className={classes.container}>
                 <div className={classes.logoIcon}>
@@ -73,5 +72,6 @@ const EmailVerificationModal: FC<CustomizeModalProps> =({email,open,onClose, onO
             </DialogContent>
         </Dialog>
     );
-}
-export default EmailVerificationModal
+};
+
+export default EmailVerificationModal;

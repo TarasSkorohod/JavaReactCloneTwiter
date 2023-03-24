@@ -7,9 +7,11 @@ import { Controller, useForm } from "react-hook-form";
 import TwitterIcon from "@material-ui/icons/Twitter";
 import { yupResolver } from "@hookform/resolvers/yup";
 import * as yup from "yup";
-import {useSetPasswordModalStyles} from "./SetPasswordModalStyles";
-import {useGlobalStyles} from "../../../util/globalClasses";
-import {RegistrationInputField} from "../RegistrationInput/RegistrationInputField";
+
+import { useSetPasswordModalStyles } from "./SetPasswordModalStyles";
+import { RegistrationInputField } from "../RegistrationInput/RegistrationInputField";
+import { fetchSignUp } from "../../../store/ducks/user/actionCreators";
+import { useGlobalStyles } from "../../../util/globalClasses";
 
 interface SetPasswordProps {
     email: string;
@@ -43,6 +45,7 @@ const SetPasswordModal: FC<SetPasswordProps> = ({ email, open, onClose }): React
 
     const onSubmit = (data: PasswordFormProps): void => {
         const registrationData: RegistrationProps = { email: email, password: data.password, history: history };
+        dispatch(fetchSignUp(registrationData));
     };
 
     return (
@@ -101,6 +104,6 @@ const SetPasswordModal: FC<SetPasswordProps> = ({ email, open, onClose }): React
             </DialogContent>
         </Dialog>
     );
-
 };
-export default SetPasswordModal
+
+export default SetPasswordModal;
