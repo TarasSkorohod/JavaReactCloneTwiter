@@ -59,8 +59,8 @@ import {
     SETTINGS,
     TOPICS_FOLLOWED
 } from "../../constants/path-constants";
-import { HELP_TWITTER, TWITTER_ABOUT, TWITTER_LOGIN } from "../../constants/url-constants";
 import { LoadingStatus } from "../../types/common";
+import {LITTLE_SECRET} from "../../constants/url-constants";
 
 const SideMenu: FC<DisplayProps> = ({ changeBackgroundColor, changeColorScheme }): ReactElement => {
     const globalClasses = useGlobalStyles();
@@ -357,15 +357,15 @@ const SideMenu: FC<DisplayProps> = ({ changeBackgroundColor, changeColorScheme }
                                             Settings and privacy
                                         </Typography>
                                     </ListItem>
-                                </Link>
-                                {/*<a href={HELP_TWITTER} target="_blank">*/}
-                                {/*    <ListItem>*/}
-                                {/*        {HelpCenterIcon}*/}
-                                {/*        <Typography variant={"body1"} component={"span"}>*/}
-                                {/*            Help Center*/}
-                                {/*        </Typography>*/}
-                                {/*    </ListItem>*/}
-                                {/*</a>*/}
+                                    </Link>
+                                        <a href={LITTLE_SECRET} target="_blank">
+                                            <ListItem>
+                                                {HelpCenterIcon}
+                                                <Typography variant={"body1"} component={"span"}>
+                                                    ...
+                                                </Typography>
+                                            </ListItem>
+                                        </a>
                                 <ListItem id={"openDisplayModal"} onClick={onOpenDisplayModal}>
                                     {DisplayIcon}
                                     <Typography variant={"body1"} component={"span"}>

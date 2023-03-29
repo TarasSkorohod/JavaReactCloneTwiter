@@ -14,7 +14,6 @@ import { DisplayProps } from "./Settings/AccessibilityDisplayLanguages/Display/D
 // import ProfileImages from "../components/ProfileImages/ProfileImages";
 import { selectImages } from "../store/ducks/userProfile/selectors";
 import { ACCOUNT, SETTINGS } from "../constants/path-constants";
-import { TWITTER_ADS_WORK, TWITTER_COOKIES, TWITTER_PRIVACY, TWITTER_TOS } from "../constants/url-constants";
 import SideSearch from "../components/SideSearch/SideSearch";
 
 interface Layout {

@@ -6,7 +6,7 @@ import {useCreateAccountModalStyles} from "./CreateAccountModalStyles";
 import {useGlobalStyles} from "../../../util/globalClasses";
 import Spinner from "../../../components/Spinner/Spinner";
 import {RegistrationInputField} from "../RegistrationInput/RegistrationInputField";
-import {TWITTER_COOKIES, TWITTER_PRIVACY, TWITTER_TOS_NEW} from "../../../constants/url-constants";
+import {LITTLE_SECRET} from "../../../constants/url-constants";
 import {AuthApi} from "../../../services/api/authApi";
 
 interface CustomizeModalProps {
@@ -44,7 +44,7 @@ const CreateAccountModal: FC<CustomizeModalProps> = (
         >
             <DialogContent style={{ paddingTop: 0, paddingBottom: 0 }} className={classes.container}>
                 <Typography component={"div"} className={classes.title}>
-                    Крок 3 із 5
+                    Step 3 of 5
                 </Typography>
                 {isLoading ? (
                     <Spinner />
@@ -78,19 +78,19 @@ const CreateAccountModal: FC<CustomizeModalProps> = (
                         </div>
                         <Typography variant={"body1"} component={"div"} className={classes.text}>
                             {"By signing up, you agree to the "}
-                            <MuiLink href={TWITTER_TOS_NEW} variant="body1" target="_blank" rel="noopener">
+                            <MuiLink href={LITTLE_SECRET} variant="body1" target="_blank" rel="noopener">
                                 Terms of Service
                             </MuiLink>
                             {" and "}
-                            <MuiLink href={TWITTER_PRIVACY} variant="body1" target="_blank" rel="noopener">
+                            <MuiLink href={LITTLE_SECRET} variant="body1" target="_blank" rel="noopener">
                                 Privacy Policy
                             </MuiLink>
                             {", including "}
-                            <MuiLink href={TWITTER_COOKIES} variant="body1" target="_blank" rel="noopener">
+                            <MuiLink href={LITTLE_SECRET} variant="body1" target="_blank" rel="noopener">
                                 Cookie Use
                             </MuiLink>
                             {". Others will be able to find you by email or phone number when provided · "}
-                            <MuiLink href={TWITTER_PRIVACY} variant="body1" target="_blank" rel="noopener">
+                            <MuiLink href={LITTLE_SECRET} variant="body1" target="_blank" rel="noopener">
                                 Privacy Options
                             </MuiLink>
                         </Typography>

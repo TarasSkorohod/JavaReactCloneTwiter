@@ -8,7 +8,6 @@ import * as yup from "yup";
 
 import { useRegistrationModalStyles } from "./RegistrationModalStyles";
 import RegistrationInput from "./RegistrationInput/RegistrationInput";
-import { AuthApi } from "../../services/api/authApi";
 import { FilledSelect } from "../../components/FilledSelect/FilledSelect";
 import { RegistrationInfo } from "../../types/auth";
 
@@ -46,7 +45,7 @@ const RegistrationModal: FC<RegistrationModalProps> = (
     });
 
     const onSubmit = (data: RegistrationFormProps): void => {
-    //робота с апі бекендом підключення
+        //робота с апі бекендом підключення
     };
 
     const changeMonth = (event: ChangeEvent<{ value: unknown }>): void => {

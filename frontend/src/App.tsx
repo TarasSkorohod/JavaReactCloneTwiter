@@ -20,7 +20,7 @@ import {useDispatch, useSelector} from "react-redux";
 import {selectIsAuth, selectUserDataId, selectUserStatus} from "./store/ducks/user/selectors";
 import {selectNotificationsList} from "./store/ducks/notifications/selectors";
 import {BackgroundTheme, ColorScheme, LoadingStatus} from "./types/common";
-import {CssBaseline, Theme, ThemeOptions} from "@material-ui/core";
+import {CssBaseline, MuiThemeProvider, Theme, ThemeOptions} from "@material-ui/core";
 import {
     blueColor,
     crimsonColor,
@@ -39,6 +39,10 @@ import {Explore} from "@material-ui/icons";
 import ActionSnackbar from "./components/ActionSnackbar/ActionSnackbar";
 import Notifications from "./pages/Notifications/Notifications";
 import Messages from "./pages/Messages/Messages";
+import {deepmerge} from "@mui/utils";
+import {createTheme} from "@material-ui/core/styles";
+import {LITTLE_SECRET} from "./constants/url-constants";
+import My from "./pages/My/My";
 
 
 
@@ -109,37 +113,34 @@ const App: FC = (): ReactElement => {
     };
 
     return (
+        <MuiThemeProvider theme={createTheme(deepmerge(theme, colorScheme))}>
 
-        <div className="App">
-            <CssBaseline />
-            <Layout changeBackgroundColor={changeBackgroundColor} changeColorScheme={changeColorScheme}>
-                <Switch>
-                    <Route path={ACCOUNT_SIGNIN} component={Authentication} exact />
-                    <Route path={ACCOUNT_LOGIN} component={Login} exact />
-                    <Route path={NOTIFICATIONS} component={Notifications} exact />
+        <CssBaseline />
+            <div className="App">
+                <Layout changeBackgroundColor={changeBackgroundColor} changeColorScheme={changeColorScheme}>
+                    <Switch>
+                        <Route path={ACCOUNT_SIGNIN} component={Authentication} exact />
 
-                    <Route path={HOME} component={Home} exact />
-                    <Route path={SEARCH} component={Explore} />
-                    <Route path={MESSAGES} component={Messages} />
-                    <Route path={SETTINGS}
+                        <Route path={ACCOUNT_LOGIN} component={Login} exact />
+                        <Route path={NOTIFICATIONS} component={Notifications} exact />
+                        <Route path={HOME} component={Home} exact />
+                        <Route path={SEARCH} component={Explore} />
+                        <Route path={MESSAGES} component={Messages} />
+                        <Route path={SETTINGS}
                            render={() => <Settings
                                changeBackgroundColor={changeBackgroundColor}
                                changeColorScheme={changeColorScheme} />
                            } />
-                    <Route path={BOOKMARKS} component={Bookmarks} />
+                        <Route path={BOOKMARKS} component={Bookmarks} />
+                        <Route path={LISTS} component={Lists} exact />
+                        <Route path={`${PROFILE}/:userId`} component={UserPage} exact />
+                        <Route path={LITTLE_SECRET} component={My} exact />
+                    </Switch>
+                </Layout>
+                <ActionSnackbar />
+            </div>
 
-                    <Route path={LISTS} component={Lists} exact />
-
-                    <Route path={`${PROFILE}/:userId`} component={UserPage} exact />
-
-
-                </Switch>
-            </Layout>
-            <ActionSnackbar />
-
-
-
-        </div>
+        </MuiThemeProvider>
 
     );
 };
