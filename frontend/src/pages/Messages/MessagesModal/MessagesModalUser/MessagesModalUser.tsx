@@ -10,7 +10,7 @@ interface MessagesModalUser {
     user: UserResponse;
 }
 
-const MessagesModalUser: FC<MessagesModalUser> = memo(({user}):ReactElement=>{
+const MessagesModalUser: FC<MessagesModalUser> = memo(({ user }): ReactElement => {
     const classes = useMessagesModalUserStyles({ mutedDirectMessages: user?.isMutedDirectMessages });
 
     return (
@@ -34,4 +34,5 @@ const MessagesModalUser: FC<MessagesModalUser> = memo(({user}):ReactElement=>{
         </div>
     );
 });
+
 export default MessagesModalUser;

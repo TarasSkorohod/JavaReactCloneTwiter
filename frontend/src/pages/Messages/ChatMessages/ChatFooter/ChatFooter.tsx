@@ -13,7 +13,8 @@ import ActionIcon from "../../ActionIcon/ActionIcon";
 interface ChatFooterProps {
     chatId: number;
 }
-const ChatFooter: FC<ChatFooterProps> =({chatId}):ReactElement => {
+
+const ChatFooter: FC<ChatFooterProps> = ({ chatId }): ReactElement => {
     const classes = useChatFooterStyles();
     const dispatch = useDispatch();
     const [message, setMessage] = useState<string>("");
@@ -102,4 +103,5 @@ const ChatFooter: FC<ChatFooterProps> =({chatId}):ReactElement => {
         </Paper>
     );
 };
+
 export default ChatFooter;

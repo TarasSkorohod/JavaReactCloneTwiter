@@ -10,6 +10,7 @@ import { useGlobalStyles } from "../../../util/globalClasses";
 const MessageSettings = memo((): ReactElement => {
     const globalClasses = useGlobalStyles();
     const classes = useMessageSettingsStyles();
+
     return (
         <Paper className={classnames(globalClasses.pageContainer, classes.chatContainer)} variant="outlined">
             <Paper className={classnames(globalClasses.pageHeader, classes.chatHeader)} variant="outlined">
@@ -24,4 +25,5 @@ const MessageSettings = memo((): ReactElement => {
         </Paper>
     );
 });
+
 export default MessageSettings;

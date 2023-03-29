@@ -1,4 +1,4 @@
-import {makeStyles, Theme} from "@material-ui/core";
+import { makeStyles, Theme } from "@material-ui/core";
 
 export const useUserListsStyles = makeStyles((theme: Theme) => ({
     myLists: {

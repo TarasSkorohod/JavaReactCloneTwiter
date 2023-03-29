@@ -1,10 +1,11 @@
-import {FC, memo, ReactElement} from "react";
+import React, { FC, memo, ReactElement } from "react";
 import { Avatar, Typography } from "@material-ui/core";
-import {DEFAULT_PROFILE_IMG} from "../../../../constants/url-constants";
-import {useHoverList} from "../../../../hook/useHoverList";
-import {useListsItemStyles} from "../ListsItemStyles";
-import LockIcon from "../../../../components/LockIcon/LockIcon";
 
+import LockIcon from "../../../../components/LockIcon/LockIcon";
+import PopperListWindow from "../../PopperListWindow/PopperListWindow";
+import { useListsItemStyles } from "../ListsItemStyles";
+import { useHoverList } from "../../../../hook/useHoverList";
+import { DEFAULT_PROFILE_IMG } from "../../../../constants/url-constants";
 
 interface ListInfoDescriptionProps {
     listId?: number;
@@ -16,7 +17,6 @@ interface ListInfoDescriptionProps {
     listOwnerAvatar?: string;
 }
 
-
 const ListInfoDescription: FC<ListInfoDescriptionProps> = memo((
     {
         listId,
@@ -27,7 +27,7 @@ const ListInfoDescription: FC<ListInfoDescriptionProps> = memo((
         listOwnerUsername,
         listOwnerAvatar
     }
-):ReactElement =>{
+): ReactElement => {
     const classes = useListsItemStyles();
     const { visiblePopperWindow, handleHoverPopper, handleLeavePopper } = useHoverList();
     const avatar = listOwnerAvatar ? listOwnerAvatar : DEFAULT_PROFILE_IMG;
@@ -59,8 +59,9 @@ const ListInfoDescription: FC<ListInfoDescriptionProps> = memo((
                     @{listOwnerUsername}
                 </Typography>
             </div>
+            <PopperListWindow visible={visiblePopperWindow} />
         </div>
     );
+});
 
-})
 export default ListInfoDescription;

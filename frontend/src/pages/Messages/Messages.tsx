@@ -1,20 +1,26 @@
-import {FC, ReactElement, useCallback, useState} from "react";
-import {useMessagesStyles} from "./MessagesStyles";
-import {useGlobalStyles} from "../../util/globalClasses";
-import {Grid, List, Paper} from "@material-ui/core";
+import React, { FC, ReactElement, useCallback, useEffect, useState } from "react";
+import { Route, useLocation } from "react-router-dom";
+import { useDispatch, useSelector } from "react-redux";
+import { Grid, List, Paper } from "@material-ui/core";
+
+import { useMessagesStyles } from "./MessagesStyles";
+import { fetchChats, resetChatsState } from "../../store/ducks/chats/actionCreators";
+import { selectUserDataId } from "../../store/ducks/user/selectors";
+import { selectChatsItems, selectIsChatsLoading } from "../../store/ducks/chats/selectors";
+import { resetChatMessages } from "../../store/ducks/chatMessages/actionCreators";
+import ConversationInfo from "./ConversationInfo/ConversationInfo";
 import Spinner from "../../components/Spinner/Spinner";
-import ChatFooter from "./ChatMessages/ChatFooter/ChatFooter";
+import { useGlobalStyles } from "../../util/globalClasses";
+import { ChatResponse } from "../../types/chat";
+import ChatMessages from "./ChatMessages/ChatMessages";
+import { withDocumentTitle } from "../../hoc/withDocumentTitle";
+import { MESSAGES, MESSAGES_SETTINGS } from "../../constants/path-constants";
 import MessagesHeader from "./MessagesHeader/MessagesHeader";
-import SearchChatParticipant from "./SearchChatParticipant/SearchChatParticipant";
 import StartConversation from "./StartConversation/StartConversation";
 import ChatParticipant from "./ChatParticipant/ChatParticipant";
-import {selectChatsItems, selectIsChatsLoading} from "../../store/ducks/chats/selectors";
-import {useDispatch, useSelector} from "react-redux";
-import {selectUserDataId} from "../../store/ducks/user/selectors";
-import {Route, useLocation} from "react-router-dom";
-import {ChatResponse} from "../../types/chat";
-import {MESSAGES, MESSAGES_SETTINGS} from "../../constants/path-constants";
 import MessageSettings from "./MessageSettings/MessageSettings";
+import SearchChatParticipant from "./SearchChatParticipant/SearchChatParticipant";
+import { resetChatState } from "../../store/ducks/chat/actionCreators";
 
 const Messages: FC = (): ReactElement => {
     const globalClasses = useGlobalStyles();
@@ -27,6 +33,22 @@ const Messages: FC = (): ReactElement => {
     const [participantId, setParticipantId] = useState<number | undefined>(undefined);
     const [chatId, setChatId] = useState<number | undefined>(undefined);
 
+    useEffect(() => {
+        dispatch(fetchChats());
+
+        return () => {
+            dispatch(resetChatsState());
+            dispatch(resetChatState());
+        };
+    }, []);
+
+    useEffect(() => {
+        if (location.state?.removeParticipant === true) {
+            setParticipantId(undefined);
+            dispatch(resetChatMessages());
+            dispatch(resetChatState());
+        }
+    }, [location.state?.removeParticipant]);
 
     const handleListItemClick = useCallback((chat: ChatResponse): void => {
         setParticipantId((chat.participants[0].user.id === myProfileId) ? chat.participants[1].id : chat.participants[0].id);
@@ -66,14 +88,14 @@ const Messages: FC = (): ReactElement => {
                     <MessageSettings />
                 </Route>
                 <Route exact path={`${MESSAGES}/:id/info`}>
-
+                    <ConversationInfo participantId={participantId} chatId={chatId} />
                 </Route>
                 <Route exact path={MESSAGES}>
-
+                    <ChatMessages participantId={participantId} chatId={chatId} />
                 </Route>
             </Grid>
         </>
     );
 };
 
-export default Messages;
+export default withDocumentTitle(Messages)("Messages");

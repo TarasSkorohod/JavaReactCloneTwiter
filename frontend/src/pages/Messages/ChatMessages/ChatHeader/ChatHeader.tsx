@@ -11,7 +11,7 @@ import { useChatHeaderStyles } from "./ChatHeaderStyles";
 import ActionIcon from "../../ActionIcon/ActionIcon";
 import { selectUserProfile } from "../../../../store/ducks/userProfile/selectors";
 
-const ChatHeader = memo(():ReactElement =>{
+const ChatHeader = memo((): ReactElement => {
     const globalClasses = useGlobalStyles();
     const classes = useChatHeaderStyles();
     const chatParticipant = useSelector(selectUserProfile);
@@ -38,4 +38,5 @@ const ChatHeader = memo(():ReactElement =>{
         </Paper>
     );
 });
+
 export default ChatHeader;

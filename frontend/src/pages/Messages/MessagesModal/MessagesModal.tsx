@@ -19,14 +19,13 @@ import CloseButton from "../../../components/CloseButton/CloseButton";
 import { selectUserDataId } from "../../../store/ducks/user/selectors";
 import { UserResponse } from "../../../types/user";
 import InfiniteScrollWrapper from "../../../components/InfiniteScrollWrapper/InfiniteScrollWrapper";
-import users from "../../../components/Users/Users";
 
 interface MessagesModalProps {
     visible?: boolean;
     onClose: () => void;
 }
 
-const MessagesModal: FC<MessagesModalProps> = ({visible, onClose}):ReactElement | null =>{
+const MessagesModal: FC<MessagesModalProps> = ({ visible, onClose }): ReactElement | null => {
     const classes = useMessagesModalStyles();
     const dispatch = useDispatch();
     const users = useSelector(selectUsersSearch);
@@ -84,12 +83,13 @@ const MessagesModal: FC<MessagesModalProps> = ({visible, onClose}):ReactElement 
                 <CloseButton onClose={onClose} />
                 New message
                 <Button
-
+                    onClick={handleClickAddUserToChat}
                     className={classes.button}
                     type="submit"
                     variant="contained"
                     color="primary"
                     size="small"
+                    disabled={!selectedIndex}
                 >
                     Next
                 </Button>
@@ -133,6 +133,7 @@ const MessagesModal: FC<MessagesModalProps> = ({visible, onClose}):ReactElement 
                 </InfiniteScrollWrapper>
             </DialogContent>
         </Dialog>
-        );
+    );
 };
+
 export default MessagesModal;

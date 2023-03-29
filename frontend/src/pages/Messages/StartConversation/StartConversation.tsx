@@ -7,8 +7,7 @@ import { useMessagesModal } from "../MessagesModal/useMessagesModal";
 
 const StartConversation = memo((): ReactElement => {
     const classes = useStartConversationStyles();
-    const {visibleModalWindow, onOpenModalWindow, onCloseModalWindow} = useMessagesModal();
-
+    const { visibleModalWindow, onOpenModalWindow, onCloseModalWindow } = useMessagesModal();
 
     return (
         <>
@@ -32,4 +31,5 @@ const StartConversation = memo((): ReactElement => {
         </>
     );
 });
+
 export default StartConversation;

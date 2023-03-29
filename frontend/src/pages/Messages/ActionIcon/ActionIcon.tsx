@@ -23,28 +23,30 @@ const ActionIcon: FC<ActionIconProps> = (
         icon,
         disabled
     }
-):ReactElement => {
+): ReactElement => {
     const classes = useActionIconStyles();
 
     const Icon = (): JSX.Element => {
         return <ActionIconButton
             onClick={onClick}
             actionText={actionText}
-            icon={icon}
             disabled={disabled}
+            icon={icon}
             size={"medium"}
-        />
+        />;
     };
+
     return (
         <div className={classes[className]}>
             {path ? (
                 <Link to={path}>
                     <Icon />
                 </Link>
-            ):(
+            ) : (
                 <Icon />
             )}
         </div>
     );
 };
+
 export default ActionIcon;
